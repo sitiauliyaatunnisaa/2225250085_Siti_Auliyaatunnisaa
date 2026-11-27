@@ -63,6 +63,8 @@ Yang dibutuhkan: **akun Google saja**. Tidak perlu Netlify, tidak perlu server, 
 - Mode Pemilik → 🌐 Semua perangkat memuat ulang data **setiap 15 detik** selama halaman terbuka.
 - Kunci rahasia hanya ada di Apps Script dan di perangkat pemilik, **tidak ada di kode aplikasi**. Tanpa kunci, orang lain tidak bisa membaca data walaupun tahu link-nya.
 - Di bagian atas link Google, ada tulisan kecil "Aplikasi ini dibuat oleh pengguna Google Apps Script". Itu normal.
+- **Laporan PDF**: saat siswa atau pemilik menekan "Buat laporan PDF", file disimpan sementara di folder Google Drive **AkarKu - Laporan PDF** milikmu dan muncul tombol **Unduh** / **Lihat** yang bisa dibuka di Android maupun iPhone. File dihapus otomatis setelah 3 hari.
+- Setelah memperbarui `Code.gs` versi ini, **jalankan `setup()` sekali lagi** agar Google meminta izin akses Drive, lalu terapkan **versi baru** (langkah C).
 
 ## E. Alternatif: publikasi di Netlify (opsional)
 

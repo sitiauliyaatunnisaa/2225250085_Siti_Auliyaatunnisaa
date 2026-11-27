@@ -1,0 +1,15 @@
+# Data penelitian siswa (jangan diunggah)
+data/
+AkarKu/data/
+
+# Lingkungan Python
+.venv/
+__pycache__/
+
+# Rahasia
+.env
+*.key
+
+# Sistem
+.DS_Store
+Thumbs.db

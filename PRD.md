@@ -16,7 +16,7 @@
 
 ## 1. Latar Belakang
 
-Hasil wawancara semi-terstruktur (35 menit) dengan siswa kelas IX (kode **S01**, 6 November 2026) tentang beban kognitif dalam mempelajari **bilangan bentuk akar** menghasilkan temuan berikut. Rincian lengkap ada di [docs/01-analisis-kebutuhan.md](docs/01-analisis-kebutuhan.md).
+Hasil wawancara semi-terstruktur (35 menit) dengan siswa kelas IX (kode **S01**, 6 November 2026) tentang beban kognitif dalam mempelajari **bilangan bentuk akar** menghasilkan temuan berikut. Rincian lengkap ada di [docs/01-analisis-kebutuhan.md](AkarKu/docs/01-analisis-kebutuhan.md).
 
 | Kode | Temuan utama | Jenis beban |
 |---|---|---|
@@ -33,7 +33,7 @@ Hasil wawancara semi-terstruktur (35 menit) dengan siswa kelas IX (kode **S01**,
 
 Selain penguasaan prosedur, siswa perlu mampu **menggunakan bentuk akar dalam situasi nyata**: merumuskan masalah menjadi model matematika, menyelesaikannya, lalu menafsirkan apakah hasilnya masuk akal. Kemampuan ini diukur dalam **PISA** (literasi matematika) dan **Asesmen Nasional – AKM Numerasi**. Hasil kedua asesmen tersebut menunjukkan kemampuan literasi matematika siswa Indonesia masih perlu ditingkatkan.
 
-Temuan wawancara mendukung kebutuhan ini. Siswa **bingung menentukan angka yang dipakai dalam soal cerita (EL05)**, yang merupakan kesulitan pada proses *merumuskan*. Siswa juga terbiasa memeriksa ulang jawaban (GL02), yang menjadi modal untuk proses *menafsirkan dan mengevaluasi*. Rincian rancangan: [docs/09-literasi-matematika.md](docs/09-literasi-matematika.md).
+Temuan wawancara mendukung kebutuhan ini. Siswa **bingung menentukan angka yang dipakai dalam soal cerita (EL05)**, yang merupakan kesulitan pada proses *merumuskan*. Siswa juga terbiasa memeriksa ulang jawaban (GL02), yang menjadi modal untuk proses *menafsirkan dan mengevaluasi*. Rincian rancangan: [docs/09-literasi-matematika.md](AkarKu/docs/09-literasi-matematika.md).
 
 ## 2. Rumusan Masalah
 
@@ -57,7 +57,7 @@ Siswa SMP kesulitan memahami bentuk akar. Penyebabnya: (1) kompleksitas materi y
 | Skor beban kognitif yang dirasakan (skala Paas / angket CLT) | Beban ekstrinsik turun dibanding pembelajaran biasa |
 | Kemampuan literasi matematika (tes literasi pre-post, rubrik 3 proses) | N-gain ≥ 0,3 dan peningkatan skor pada proses *merumuskan* serta *menafsirkan* |
 | Penyelesaian modul | ≥ 70% siswa uji coba menyelesaikan semua modul inti |
-| Kinerja aplikasi di smartphone | Lighthouse Mobile ≥ 90. Lulus seluruh daftar uji smartphone ([docs/12 §5.3](docs/12-optimasi-smartphone.md)) di HP Android kelas bawah, menengah, dan iPhone |
+| Kinerja aplikasi di smartphone | Lighthouse Mobile ≥ 90. Lulus seluruh daftar uji smartphone ([docs/12 §5.3](AkarKu/docs/12-optimasi-smartphone.md)) di HP Android kelas bawah, menengah, dan iPhone |
 
 ## 5. Persona Pengguna
 
@@ -164,7 +164,7 @@ Prioritas: **P0** = wajib ada di MVP, **P1** = sebaiknya ada, **P2** = versi ber
 | F7.4 | Cadangkan/pulihkan progres ke file (agar progres tidak hilang jika data browser terhapus) | P1 |
 
 ### F8 — Literasi Matematika
-Rincian kerangka, contoh stimulus, dan rubrik ada di [docs/09-literasi-matematika.md](docs/09-literasi-matematika.md).
+Rincian kerangka, contoh stimulus, dan rubrik ada di [docs/09-literasi-matematika.md](AkarKu/docs/09-literasi-matematika.md).
 
 | ID | Kebutuhan | Prioritas | Proses literasi / prinsip CLT |
 |---|---|---|---|
@@ -183,7 +183,7 @@ Rincian kerangka, contoh stimulus, dan rubrik ada di [docs/09-literasi-matematik
 **Aturan keselarasan dengan CLT:** stimulus literasi tetap pendek (≤ 60 kata, 1 visual). Informasi pengecoh hanya muncul di tingkat sulit. Siswa dapat mengetuk informasi penting untuk menandainya. Literasi ditempatkan **setelah** konsep dikuasai (di Pojok Literasi dan M6) agar beban intrinsik tidak menumpuk.
 
 ### F9 — Akses dan Instalasi Tanpa Toko Aplikasi
-Rincian: [docs/10-instalasi-tanpa-playstore.md](docs/10-instalasi-tanpa-playstore.md).
+Rincian: [docs/10-instalasi-tanpa-playstore.md](AkarKu/docs/10-instalasi-tanpa-playstore.md).
 
 | ID | Kebutuhan | Prioritas |
 |---|---|---|
@@ -195,17 +195,17 @@ Rincian: [docs/10-instalasi-tanpa-playstore.md](docs/10-instalasi-tanpa-playstor
 | F9.6 | Indikator kecil **mode offline** | P1 |
 
 ### F10 — Ekspor Data untuk Analisis Statistik (Python)
-Rincian: [docs/11-analisis-statistik-python.md](docs/11-analisis-statistik-python.md).
+Rincian: [docs/11-analisis-statistik-python.md](AkarKu/docs/11-analisis-statistik-python.md).
 
 | ID | Kebutuhan | Prioritas |
 |---|---|---|
-| F10.1 | Ekspor CSV (`attempts`, `tests`, `reflections`) dengan kontrak kolom tetap ([docs/03 §7](docs/03-arsitektur-teknis.md)) | P0 |
+| F10.1 | Ekspor CSV (`attempts`, `tests`, `reflections`) dengan kontrak kolom tetap ([docs/03 §7](AkarKu/docs/03-arsitektur-teknis.md)) | P0 |
 | F10.2 | Menu ekspor dilindungi **PIN peneliti** agar tidak tertekan siswa secara tidak sengaja | P1 |
 | F10.3 | Skrip Python untuk validasi ahli (persentase dan Aiken's V), kepraktisan, N-gain dan uji beda, beban kognitif (Cronbach's alpha), literasi per proses, dan analisis log | P0 |
 | F10.4 | Grafik dan tabel hasil siap tempel ke laporan skripsi (PNG 300 dpi, Excel) | P1 |
 
 ### F11 — Berfungsi Baik di Smartphone
-Rincian aturan teknis dan pengujian: [docs/12-optimasi-smartphone.md](docs/12-optimasi-smartphone.md).
+Rincian aturan teknis dan pengujian: [docs/12-optimasi-smartphone.md](AkarKu/docs/12-optimasi-smartphone.md).
 
 | ID | Kebutuhan | Prioritas |
 |---|---|---|
@@ -245,11 +245,23 @@ Alat bantu belajar, **bukan** pengganti latihan. Kalkulator **tidak tersedia** s
 | F13.4 | Unduh **laporan PDF** semua pengunjung (rekap + detail jawaban tiap siswa, mudah dibaca di HP) serta CSV **riwayat jawaban** dan **ringkasan nilai** untuk Excel/Python (docs/11) | P0 |
 | F13.8 | Siswa dapat mengunduh **laporan hasil belajarnya sendiri dalam PDF** (ringkasan nilai + riwayat jawaban) | P0 |
 | F13.5 | Hapus semua data dengan konfirmasi dua langkah | P1 |
-| F13.6 | **Rekap online dari semua HP** dalam satu dasbor pemilik: setiap aktivitas dikirim otomatis ke **Google Sheets** lewat Google Apps Script, dengan antrean offline. Mode Pemilik → "🌐 Semua perangkat" membaca data dengan kunci rahasia pemilik. Panduan: [docs/13](docs/13-rekap-online-google-sheets.md) | P0 |
+| F13.6 | **Rekap online dari semua HP** dalam satu dasbor pemilik: setiap aktivitas dikirim otomatis ke **Google Sheets** lewat Google Apps Script, dengan antrean offline. Mode Pemilik → "🌐 Semua perangkat" membaca data dengan kunci rahasia pemilik. Panduan: [docs/13](AkarKu/docs/13-rekap-online-google-sheets.md) | P0 |
 | F13.7 | Pemberitahuan di halaman awal bahwa nama, kunjungan, jawaban, dan nilai tercatat dan dapat dilihat pemilik aplikasi | P0 |
 
+### F15 — Asisten Belajar AI "Si Akar" (Gemini gratis / DeepSeek)
+Rancangan lengkap: [docs/14](AkarKu/docs/14-asisten-ai-pedagogis.md).
+
+| ID | Kebutuhan | Prioritas |
+|---|---|---|
+| F15.1 | Chatbot pembimbing proses berpikir, bisa dibuka dari Beranda, Belajar, Latihan, dan Pojok Literasi. **Tidak tersedia** saat kuis, paket soal, dan refleksi | P0 |
+| F15.2 | Tidak memberi jawaban akhir. Bantuan bertingkat 0–3 sesuai jumlah percobaan dan jenis kesulitan siswa | P0 |
+| F15.3 | Mengelola beban kognitif: pesan ≤ 60 kata, satu langkah per pesan, satu pertanyaan balik, ajakan menjelaskan alasan | P0 |
+| F15.4 | Membimbing siklus literasi (Rumuskan–Kerjakan–Tafsirkan) dan fase RMT Kinard & Kozulin (pengembangan kognitif, konten sebagai proses pembelajaran, praktik konstruksi kognitif konseptual) | P0 |
+| F15.5 | Mendukung Google Gemini (gratis, disarankan), DeepSeek lewat OpenRouter (gratis), atau DeepSeek resmi (berbayar). API key disimpan di server (Properti skrip Apps Script), tidak pernah di aplikasi. Batas 40 pertanyaan/siswa/jam | P0 |
+| F15.6 | Setiap percakapan tercatat (fase RMT, tahap literasi, level bantuan, jenis kesulitan) untuk analisis penelitian | P0 |
+
 ### F14 — Paket Soal Bertingkat (Mudah, Sedang, Sulit)
-Bank soal lengkap: [docs/05-spesifikasi-konten.md](docs/05-spesifikasi-konten.md) bagian "Paket Soal".
+Bank soal lengkap: [docs/05-spesifikasi-konten.md](AkarKu/docs/05-spesifikasi-konten.md) bagian "Paket Soal".
 
 | ID | Kebutuhan | Prioritas |
 |---|---|---|
@@ -269,7 +281,7 @@ Bank soal lengkap: [docs/05-spesifikasi-konten.md](docs/05-spesifikasi-konten.md
 | Bahasa pemrograman | JavaScript (aplikasi, JSDoc untuk pemeriksaan tipe) dan Python 3.11+ (analisis statistik, tidak berjalan di aplikasi siswa) |
 | Hosting | Hosting statis gratis ber-HTTPS (GitHub Pages/Netlify/Vercel) |
 | Offline | Semua materi, latihan, dan progres berfungsi tanpa internet setelah pertama kali dibuka |
-| **Smartphone** | Berfungsi baik di HP Android 8+ dengan RAM 2–3 GB dan iPhone iOS 16.4+, lebar layar 320–430 px. Rincian: [docs/12-optimasi-smartphone.md](docs/12-optimasi-smartphone.md) |
+| **Smartphone** | Berfungsi baik di HP Android 8+ dengan RAM 2–3 GB dan iPhone iOS 16.4+, lebar layar 320–430 px. Rincian: [docs/12-optimasi-smartphone.md](AkarKu/docs/12-optimasi-smartphone.md) |
 | Kinerja (mode mobile) | JavaScript awal ≤ 250 KB (gzip), total unduhan offline ≤ 3 MB, LCP ≤ 2,5 detik (4G), INP ≤ 200 ms, buka ulang ≤ 1,5 detik, Lighthouse Mobile ≥ 90 |
 | Penyimpanan | Data disimpan lokal (IndexedDB/localStorage). Tidak ada data pribadi yang dikirim ke server |
 | Aksesibilitas | Kontras teks minimal WCAG AA (4,5:1), target sentuh ≥ 48×48 px, huruf dasar ≥ 16 px |
@@ -289,7 +301,7 @@ Bank soal lengkap: [docs/05-spesifikasi-konten.md](docs/05-spesifikasi-konten.md
 7. **Kesalahan adalah bahan belajar.** Umpan balik menjelaskan *mengapa*, bukan sekadar "Salah" (IL05).
 8. **Matematika untuk kehidupan.** Setiap modul dibuka dengan situasi nyata dan ditutup dengan menafsirkan hasil di situasi tersebut (literasi).
 
-Detail panduan antarmuka: [docs/04-panduan-ui-ux.md](docs/04-panduan-ui-ux.md).
+Detail panduan antarmuka: [docs/04-panduan-ui-ux.md](AkarKu/docs/04-panduan-ui-ux.md).
 
 ## 10. Alur Pengguna Utama
 
@@ -315,7 +327,7 @@ Pindai QR di brosur / buka tautan di browser
 | Aplikasi siswa (data umum) | **JavaScript** | React + Vite, Tailwind CSS, KaTeX, Zustand, Dexie (IndexedDB), vite-plugin-pwa (PWA), Capacitor (APK opsional) |
 | Analisis penelitian (data statistik) | **Python** | pandas, scipy, pingouin, matplotlib, openpyxl, qrcode |
 
-Detail: [docs/03-arsitektur-teknis.md](docs/03-arsitektur-teknis.md).
+Detail: [docs/03-arsitektur-teknis.md](AkarKu/docs/03-arsitektur-teknis.md).
 
 ## 12. Risiko dan Mitigasi
 
@@ -334,7 +346,7 @@ Detail: [docs/03-arsitektur-teknis.md](docs/03-arsitektur-teknis.md).
 
 ## 13. Tahapan dan Jadwal
 
-Lihat [docs/06-roadmap-dan-tugas.md](docs/06-roadmap-dan-tugas.md).
+Lihat [docs/06-roadmap-dan-tugas.md](AkarKu/docs/06-roadmap-dan-tugas.md).
 
 | Fase ADDIE | Keluaran | Perkiraan |
 |---|---|---|
@@ -350,15 +362,15 @@ Lihat [docs/06-roadmap-dan-tugas.md](docs/06-roadmap-dan-tugas.md).
 |---|---|
 | [CLAUDE.md](CLAUDE.md) | Instruksi untuk asisten AI (Claude Code) saat membangun aplikasi |
 | [README.md](README.md) | Ringkasan proyek dan cara menjalankan |
-| [docs/01-analisis-kebutuhan.md](docs/01-analisis-kebutuhan.md) | Fase Analysis ADDIE |
-| [docs/02-desain-pembelajaran.md](docs/02-desain-pembelajaran.md) | Fase Design: CP/TP, strategi CLT, alur modul |
-| [docs/03-arsitektur-teknis.md](docs/03-arsitektur-teknis.md) | Stack, struktur folder, model data |
-| [docs/04-panduan-ui-ux.md](docs/04-panduan-ui-ux.md) | Sistem desain dan aturan antarmuka |
-| [docs/05-spesifikasi-konten.md](docs/05-spesifikasi-konten.md) | Isi materi, contoh, dan bank soal per modul |
-| [docs/06-roadmap-dan-tugas.md](docs/06-roadmap-dan-tugas.md) | Tahapan pengerjaan dan daftar tugas |
-| [docs/07-rencana-evaluasi.md](docs/07-rencana-evaluasi.md) | Validasi ahli, uji coba, dan instrumen penelitian |
-| [docs/08-storyboard.md](docs/08-storyboard.md) | Storyboard layar per layar |
-| [docs/09-literasi-matematika.md](docs/09-literasi-matematika.md) | Kerangka, desain fitur, bank stimulus, dan rubrik literasi matematika |
-| [docs/10-instalasi-tanpa-playstore.md](docs/10-instalasi-tanpa-playstore.md) | Akses lewat browser, instal PWA/APK tanpa toko aplikasi, dan template brosur |
-| [docs/11-analisis-statistik-python.md](docs/11-analisis-statistik-python.md) | Analisis data statistik penelitian dengan Python |
-| [docs/12-optimasi-smartphone.md](docs/12-optimasi-smartphone.md) | Target kinerja, aturan teknis, dan pengujian di smartphone |
+| [docs/01-analisis-kebutuhan.md](AkarKu/docs/01-analisis-kebutuhan.md) | Fase Analysis ADDIE |
+| [docs/02-desain-pembelajaran.md](AkarKu/docs/02-desain-pembelajaran.md) | Fase Design: CP/TP, strategi CLT, alur modul |
+| [docs/03-arsitektur-teknis.md](AkarKu/docs/03-arsitektur-teknis.md) | Stack, struktur folder, model data |
+| [docs/04-panduan-ui-ux.md](AkarKu/docs/04-panduan-ui-ux.md) | Sistem desain dan aturan antarmuka |
+| [docs/05-spesifikasi-konten.md](AkarKu/docs/05-spesifikasi-konten.md) | Isi materi, contoh, dan bank soal per modul |
+| [docs/06-roadmap-dan-tugas.md](AkarKu/docs/06-roadmap-dan-tugas.md) | Tahapan pengerjaan dan daftar tugas |
+| [docs/07-rencana-evaluasi.md](AkarKu/docs/07-rencana-evaluasi.md) | Validasi ahli, uji coba, dan instrumen penelitian |
+| [docs/08-storyboard.md](AkarKu/docs/08-storyboard.md) | Storyboard layar per layar |
+| [docs/09-literasi-matematika.md](AkarKu/docs/09-literasi-matematika.md) | Kerangka, desain fitur, bank stimulus, dan rubrik literasi matematika |
+| [docs/10-instalasi-tanpa-playstore.md](AkarKu/docs/10-instalasi-tanpa-playstore.md) | Akses lewat browser, instal PWA/APK tanpa toko aplikasi, dan template brosur |
+| [docs/11-analisis-statistik-python.md](AkarKu/docs/11-analisis-statistik-python.md) | Analisis data statistik penelitian dengan Python |
+| [docs/12-optimasi-smartphone.md](AkarKu/docs/12-optimasi-smartphone.md) | Target kinerja, aturan teknis, dan pengujian di smartphone |

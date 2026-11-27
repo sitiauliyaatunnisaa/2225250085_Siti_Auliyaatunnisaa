@@ -133,3 +133,26 @@ Font: sistem (`system-ui`) atau **Inter**/**Nunito** (satu saja). Tinggi baris 1
 - [ ] Bahasa sederhana, tanpa istilah yang belum dijelaskan?
 - [ ] Rapi di 320–430 px tanpa gulir horizontal, dan tombol ≥ 48 px?
 - [ ] Tombol Kembali Android berperilaku benar di layar ini?
+
+---
+
+## 10. Pembaruan Identitas Visual (November 2026)
+
+Atas permintaan pemilik, tampilan diperbarui mengikuti referensi aplikasi belajar bergaya pastel.
+
+| Elemen | Ketentuan |
+|---|---|
+| Palet | Ungu `#8061C9`, Lavender `#BCA5F5`, Biru `#8BC5F5`, Kuning `#FFE18A`, Cream `#FFF9F0`, latar `#F6F2FD`, tombol utama gelap `#1F1A2E` |
+| Font | Nunito (400–900) |
+| Maskot | **Si Akar**: karakter ungu berbentuk bulat dengan simbol √ dan topi wisuda (SVG di kode). Bisa diganti dengan maskot milik pemilik |
+| Kartu | Sudut membulat 22–28 px, bayangan lembut, warna pastel berbeda per fitur (Belajar = lavender, Latihan = biru, Paket Soal = kuning, Literasi = biru, Kalkulator = cream + panel gelap) |
+| Navigasi | Menu bawah gelap berbentuk pil (Beranda, Belajar, Latihan, Paket Soal, Laporan), hanya di halaman utama |
+| Ilustrasi | Ubin persegi, ubin & kotak, titik kuadrat sempurna, pohon faktor, kebun berpagar, persegi berluas 200 cm² |
+| Animasi | Konfeti saat kuis/paket soal tuntas, literasi selesai, dan modul selesai. Mati otomatis jika HP memakai "kurangi gerakan" |
+
+**Keselarasan dengan temuan wawancara (EL03: warna mencolok mengganggu):**
+- Warna-warni dipakai pada **menu dan navigasi**, bukan di dalam langkah penyelesaian soal.
+- Di layar belajar dan soal tetap berlaku **satu warna aksen** (oranye) untuk menandai bagian yang berubah.
+- Ilustrasi hanya yang **membantu memahami soal** (ubin, kotak, kebun, pohon faktor), bukan hiasan.
+- Menu bawah disembunyikan saat belajar, latihan, dan mengerjakan soal agar siswa fokus.
+- Perlu dicek ulang lewat angket kepraktisan dan skala beban kognitif saat uji coba.

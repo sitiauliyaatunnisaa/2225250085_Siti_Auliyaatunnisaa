@@ -30,19 +30,20 @@ Aplikasi pembelajaran matematika untuk siswa SMP kelas IX pada materi **bilangan
 |---|---|
 | [PRD.md](PRD.md) | Kebutuhan produk (Product Requirements Document) |
 | [CLAUDE.md](CLAUDE.md) | Instruksi untuk asisten AI pengembang |
-| [docs/01-analisis-kebutuhan.md](docs/01-analisis-kebutuhan.md) | Analisis kebutuhan (hasil wawancara) |
-| [docs/02-desain-pembelajaran.md](docs/02-desain-pembelajaran.md) | Desain pembelajaran dan strategi CLT |
-| [docs/03-arsitektur-teknis.md](docs/03-arsitektur-teknis.md) | Arsitektur dan stack teknologi |
-| [docs/04-panduan-ui-ux.md](docs/04-panduan-ui-ux.md) | Panduan tampilan |
-| [docs/05-spesifikasi-konten.md](docs/05-spesifikasi-konten.md) | Isi materi dan bank soal |
-| [docs/06-roadmap-dan-tugas.md](docs/06-roadmap-dan-tugas.md) | Roadmap dan daftar tugas |
-| [docs/07-rencana-evaluasi.md](docs/07-rencana-evaluasi.md) | Rencana evaluasi dan instrumen |
-| [docs/08-storyboard.md](docs/08-storyboard.md) | Storyboard layar |
-| [docs/09-literasi-matematika.md](docs/09-literasi-matematika.md) | Rancangan literasi matematika |
-| [docs/10-instalasi-tanpa-playstore.md](docs/10-instalasi-tanpa-playstore.md) | Akses browser, instal tanpa toko aplikasi, dan template brosur |
-| [docs/11-analisis-statistik-python.md](docs/11-analisis-statistik-python.md) | Analisis statistik dengan Python |
-| [docs/12-optimasi-smartphone.md](docs/12-optimasi-smartphone.md) | Optimasi dan pengujian di smartphone |
-| [docs/13-rekap-online-google-sheets.md](docs/13-rekap-online-google-sheets.md) | Rekap online semua pengunjung (Google Sheets) |
+| [docs/01-analisis-kebutuhan.md](AkarKu/docs/01-analisis-kebutuhan.md) | Analisis kebutuhan (hasil wawancara) |
+| [docs/02-desain-pembelajaran.md](AkarKu/docs/02-desain-pembelajaran.md) | Desain pembelajaran dan strategi CLT |
+| [docs/03-arsitektur-teknis.md](AkarKu/docs/03-arsitektur-teknis.md) | Arsitektur dan stack teknologi |
+| [docs/04-panduan-ui-ux.md](AkarKu/docs/04-panduan-ui-ux.md) | Panduan tampilan |
+| [docs/05-spesifikasi-konten.md](AkarKu/docs/05-spesifikasi-konten.md) | Isi materi dan bank soal |
+| [docs/06-roadmap-dan-tugas.md](AkarKu/docs/06-roadmap-dan-tugas.md) | Roadmap dan daftar tugas |
+| [docs/07-rencana-evaluasi.md](AkarKu/docs/07-rencana-evaluasi.md) | Rencana evaluasi dan instrumen |
+| [docs/08-storyboard.md](AkarKu/docs/08-storyboard.md) | Storyboard layar |
+| [docs/09-literasi-matematika.md](AkarKu/docs/09-literasi-matematika.md) | Rancangan literasi matematika |
+| [docs/10-instalasi-tanpa-playstore.md](AkarKu/docs/10-instalasi-tanpa-playstore.md) | Akses browser, instal tanpa toko aplikasi, dan template brosur |
+| [docs/11-analisis-statistik-python.md](AkarKu/docs/11-analisis-statistik-python.md) | Analisis statistik dengan Python |
+| [docs/12-optimasi-smartphone.md](AkarKu/docs/12-optimasi-smartphone.md) | Optimasi dan pengujian di smartphone |
+| [docs/13-rekap-online-google-sheets.md](AkarKu/docs/13-rekap-online-google-sheets.md) | Rekap online semua pengunjung (Google Sheets) |
+| [docs/14-asisten-ai-pedagogis.md](AkarKu/docs/14-asisten-ai-pedagogis.md) | Asisten belajar AI "Si Akar" (DeepSeek) |
 
 ## Cara Memakai (Siswa)
 

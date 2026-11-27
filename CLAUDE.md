@@ -8,15 +8,16 @@ Panduan untuk Claude Code (dan asisten AI lain) saat mengembangkan proyek ini. *
 
 Sumber kebenaran:
 - Kebutuhan produk: [PRD.md](PRD.md)
-- Dasar pedagogis: [docs/01-analisis-kebutuhan.md](docs/01-analisis-kebutuhan.md), [docs/02-desain-pembelajaran.md](docs/02-desain-pembelajaran.md)
-- Teknis: [docs/03-arsitektur-teknis.md](docs/03-arsitektur-teknis.md)
-- Smartphone: [docs/12-optimasi-smartphone.md](docs/12-optimasi-smartphone.md)
-- Tampilan: [docs/04-panduan-ui-ux.md](docs/04-panduan-ui-ux.md)
-- Isi materi dan soal: [docs/05-spesifikasi-konten.md](docs/05-spesifikasi-konten.md)
-- Urutan pekerjaan: [docs/06-roadmap-dan-tugas.md](docs/06-roadmap-dan-tugas.md)
-- Literasi matematika: [docs/09-literasi-matematika.md](docs/09-literasi-matematika.md)
-- Instalasi tanpa toko aplikasi: [docs/10-instalasi-tanpa-playstore.md](docs/10-instalasi-tanpa-playstore.md)
-- Analisis statistik (Python): [docs/11-analisis-statistik-python.md](docs/11-analisis-statistik-python.md)
+- Dasar pedagogis: [docs/01-analisis-kebutuhan.md](AkarKu/docs/01-analisis-kebutuhan.md), [docs/02-desain-pembelajaran.md](AkarKu/docs/02-desain-pembelajaran.md)
+- Teknis: [docs/03-arsitektur-teknis.md](AkarKu/docs/03-arsitektur-teknis.md)
+- Smartphone: [docs/12-optimasi-smartphone.md](AkarKu/docs/12-optimasi-smartphone.md)
+- Tampilan: [docs/04-panduan-ui-ux.md](AkarKu/docs/04-panduan-ui-ux.md)
+- Isi materi dan soal: [docs/05-spesifikasi-konten.md](AkarKu/docs/05-spesifikasi-konten.md)
+- Urutan pekerjaan: [docs/06-roadmap-dan-tugas.md](AkarKu/docs/06-roadmap-dan-tugas.md)
+- Literasi matematika: [docs/09-literasi-matematika.md](AkarKu/docs/09-literasi-matematika.md)
+- Instalasi tanpa toko aplikasi: [docs/10-instalasi-tanpa-playstore.md](AkarKu/docs/10-instalasi-tanpa-playstore.md)
+- Analisis statistik (Python): [docs/11-analisis-statistik-python.md](AkarKu/docs/11-analisis-statistik-python.md)
+- Asisten AI pedagogis: [docs/14-asisten-ai-pedagogis.md](AkarKu/docs/14-asisten-ai-pedagogis.md)
 
 Jika ada konflik, urutan prioritasnya: PRD.md → docs/02 → docs/04 → dokumen lain.
 
@@ -29,7 +30,7 @@ Jika ada konflik, urutan prioritasnya: PRD.md → docs/02 → docs/04 → dokume
 
 - **Jangan** memakai TypeScript. Gunakan JavaScript (`.js`/`.jsx`) dengan anotasi **JSDoc** dan `// @ts-check` agar editor tetap memeriksa tipe.
 - **Jangan** memakai Python di dalam aplikasi siswa (tanpa server Python, tanpa Pyodide). Python hanya dijalankan peneliti di laptop.
-- Penghubung keduanya adalah **file CSV hasil ekspor** dengan kontrak kolom di [docs/03 §7](docs/03-arsitektur-teknis.md).
+- Penghubung keduanya adalah **file CSV hasil ekspor** dengan kontrak kolom di [docs/03 §7](AkarKu/docs/03-arsitektur-teknis.md).
 
 ## Akses dan Instalasi
 
@@ -121,7 +122,7 @@ Aturan ini berasal langsung dari hasil wawancara siswa. **Jangan dilanggar** kec
 
 ## Aturan Wajib — Smartphone
 
-Rincian: [docs/12-optimasi-smartphone.md](docs/12-optimasi-smartphone.md). Perangkat acuan minimum: **Android 8, RAM 2–3 GB, lebar layar 320 px**.
+Rincian: [docs/12-optimasi-smartphone.md](AkarKu/docs/12-optimasi-smartphone.md). Perangkat acuan minimum: **Android 8, RAM 2–3 GB, lebar layar 320 px**.
 
 15. **Mobile-first dan tanpa gulir horizontal.** Rancang untuk 360 px dan pastikan rapi di 320 px. Rumus panjang dipecah per langkah atau digeser di dalam kotaknya sendiri. Gunakan `100dvh`, `rem`, dan `env(safe-area-inset-*)`. Jangan menonaktifkan zoom.
 16. **Sentuhan, bukan mouse.** Target ≥ 48×48 px, tombol utama di zona jempol, `touch-action: manipulation`. Jangan ada fungsi yang bergantung pada *hover*. Swipe tidak boleh menjadi satu-satunya cara navigasi.
@@ -129,6 +130,12 @@ Rincian: [docs/12-optimasi-smartphone.md](docs/12-optimasi-smartphone.md). Peran
 18. **Progres tidak boleh hilang.** Simpan otomatis setiap perpindahan layar/jawaban dan pada `visibilitychange`. Pulihkan ke layar dan langkah terakhir. Panggil `navigator.storage.persist()`.
 19. **Keyboard terkendali.** Input bentuk akar memakai `MathKeyboard` (`inputmode="none"`). Huruf input ≥ 16 px. Kolom aktif tidak boleh tertutup keyboard. Desimal menerima koma.
 20. **Ringan dan hemat.** JavaScript awal ≤ 250 KB gzip, total offline ≤ 3 MB, *lazy load* per halaman/modul, tanpa library animasi berat, tanpa proses latar belakang. Setelah unduhan pertama, internet hanya dipakai untuk pembaruan.
+
+## Aturan Wajib — Asisten AI
+
+21. **AI adalah pembimbing, bukan pemberi jawaban.** Jangan mengubah instruksi `TUTOR_PROMPT` sehingga AI memberi jawaban akhir. Bantuan bertingkat 0–3, pesan ≤ 60 kata, satu langkah per pesan.
+22. **API key hanya di server.** Jangan pernah menaruh API key AI (Gemini, OpenRouter, DeepSeek, atau key apa pun) di `app/index.html`. Simpan di Properti skrip Apps Script.
+23. **Chat dimatikan saat penilaian** (kuis, paket soal, pretest, posttest, tes literasi). Jangan kirim nama/kode siswa ke layanan AI.
 
 Jika diminta membuat fitur yang bertentangan dengan aturan di atas, beri tahu pengguna tentang konfliknya terlebih dahulu.
 
@@ -155,7 +162,7 @@ Jika diminta membuat fitur yang bertentangan dengan aturan di atas, beri tahu pe
 - Kriteria dan konstanta (skor maksimal, α, kategori) dipusatkan di `analisis/config.py`.
 
 **Kontrak data**
-- Kolom CSV ekspor ([docs/03 §7](docs/03-arsitektur-teknis.md)) harus sama di `src/lib/exportCsv.js` dan `analisis/config.py`. Ubah keduanya bersamaan.
+- Kolom CSV ekspor ([docs/03 §7](AkarKu/docs/03-arsitektur-teknis.md)) harus sama di `src/lib/exportCsv.js` dan `analisis/config.py`. Ubah keduanya bersamaan.
 
 ## Mesin Matematika (engine, JavaScript)
 
