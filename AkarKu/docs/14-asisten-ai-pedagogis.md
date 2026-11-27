@@ -43,7 +43,7 @@ HP siswa ──(pertanyaan + konteks layar)──► Google Apps Script ──(A
    - `AI_PROVIDER` = `gemini` (atau `openrouter` / `deepseek`)
    - `AI_API_KEY` = key dari langkah 1
    - (Opsional) `AI_MODEL` = nama model lain, jika model bawaan sudah tidak tersedia. Bawaan: `gemini-2.5-flash` (Gemini) dan `deepseek/deepseek-chat-v3-0324:free` (OpenRouter). Untuk OpenRouter, cari model gratis terbaru di openrouter.ai/models dengan kata kunci "free".
-3. Tempel `backend/Code.gs` dan `app/index.html` versi terbaru → **Simpan**.
+3. Tempel `backend/Code.gs` dan `dist/index.html` versi terbaru (hasil `bash build.sh`) → **Simpan**.
 4. Jalankan fungsi **`setup`** sekali lagi → izinkan akses **"Hubungkan ke layanan eksternal"**.
 5. Uji: pilih fungsi **`testTutor`** → **Jalankan** → buka **Log eksekusi**. Harus muncul jawaban Si Akar yang **menolak memberi jawaban** dan memberi petunjuk.
 6. **Terapkan → Kelola deployment → Edit → Versi baru → Terapkan.**

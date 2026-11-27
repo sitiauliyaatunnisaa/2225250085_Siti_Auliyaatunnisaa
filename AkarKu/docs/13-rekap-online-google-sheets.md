@@ -15,7 +15,7 @@ Yang dibutuhkan: **akun Google saja**. Tidak perlu Netlify, tidak perlu server, 
 | File | Dipakai di mana |
 |---|---|
 | [backend/Code.gs](../backend/Code.gs) | Ditempel sebagai file **Code.gs** di Apps Script |
-| [app/index.html](../app/index.html) | Ditempel sebagai file HTML **index** di Apps Script |
+| [dist/index.html](../dist/index.html) | Ditempel sebagai file HTML **index** di Apps Script (hasil gabungan `app/index.html` + `app/style.css` + `app/app.js` lewat `bash build.sh`) |
 
 ---
 
@@ -25,7 +25,7 @@ Yang dibutuhkan: **akun Google saja**. Tidak perlu Netlify, tidak perlu server, 
 2. Menu **Ekstensi → Apps Script**. Tab baru terbuka.
 3. **File Code.gs:** hapus semua isinya, lalu tempel seluruh isi `backend/Code.gs`.
 4. Di fungsi `setup()`, ganti `GANTI-DENGAN-KUNCI-RAHASIAMU` dengan kunci rahasiamu sendiri, misalnya `akarku-Rahasia-2026` (minimal 8 karakter). **Catat kunci ini**, nanti dipakai di Mode Pemilik.
-5. **File index:** klik tanda **+** di samping "File" → **HTML** → beri nama persis `index` (tanpa .html). Hapus isinya, lalu tempel **seluruh isi** `app/index.html` (buka di VS Code → Ctrl+A → Ctrl+C).
+5. **File index:** klik tanda **+** di samping "File" → **HTML** → beri nama persis `index` (tanpa .html). Hapus isinya, lalu tempel **seluruh isi** `dist/index.html` (buka di VS Code → Ctrl+A → Ctrl+C).
 6. Klik **💾 Simpan proyek**.
 7. Di bagian atas, pilih fungsi **setup** → klik **▶ Jalankan**.
    - Muncul permintaan izin: **Tinjau izin** → pilih akunmu → **Lanjutan** → **Buka … (tidak aman)** → **Izinkan**. Peringatan ini muncul karena skrip buatan sendiri belum diverifikasi Google. Skrip hanya menulis ke spreadsheet milikmu.
@@ -47,7 +47,10 @@ Yang dibutuhkan: **akun Google saja**. Tidak perlu Netlify, tidak perlu server, 
 5. "Tes 1" dan "Tes 2" muncul dengan kunjungan, latihan, nilai, dan riwayat jawabannya. Biarkan halaman terbuka: jika HP 1 mengerjakan soal lagi, datanya muncul sendiri dalam ± 15 detik.
 6. Hapus baris uji coba di spreadsheet sebelum dipakai siswa sungguhan.
 
-## C. Jika `app/index.html` atau `Code.gs` diubah
+## C. Jika `app/app.js`, `app/style.css`, atau `Code.gs` diubah
+
+Jalankan dulu `bash build.sh` (di Git Bash, folder AkarKu) agar `dist/index.html` diperbarui.
+
 
 1. Tempel ulang isi file yang berubah di Apps Script → **Simpan**.
 2. **Terapkan → Kelola deployment → ✏️ Edit → Versi: Versi baru → Terapkan.**
@@ -68,7 +71,7 @@ Yang dibutuhkan: **akun Google saja**. Tidak perlu Netlify, tidak perlu server, 
 
 ## E. Alternatif: publikasi di Netlify (opsional)
 
-Jika ingin alamat sendiri (misalnya `akarku-siti.netlify.app`): tetap lakukan langkah A, lalu isi `CONFIG.SYNC_URL` di `app/index.html` dengan URL `/exec`, dan unggah folder `app` ke **app.netlify.com/drop**. Data tetap masuk ke Google Sheets yang sama.
+Jika ingin alamat sendiri (misalnya `akarku-siti.netlify.app`): tetap lakukan langkah A, lalu isi `CONFIG.SYNC_URL` di `app/app.js` dengan URL `/exec`, dan unggah folder `app` ke **app.netlify.com/drop**. Data tetap masuk ke Google Sheets yang sama.
 
 ## F. Etika dan privasi (wajib untuk penelitian)
 

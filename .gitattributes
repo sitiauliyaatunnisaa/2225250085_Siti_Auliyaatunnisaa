@@ -1,0 +1,4 @@
+# Kode Google Apps Script (.gs) adalah JavaScript
+*.gs linguist-language=JavaScript
+# File gabungan hasil build.sh tidak dihitung dalam statistik bahasa GitHub
+AkarKu/dist/** linguist-generated=true

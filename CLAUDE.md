@@ -75,7 +75,21 @@ pip install -r requirements.txt
 python jalankan_semua.py       # hasil di data/hasil/
 ```
 
-## Struktur Folder
+## Struktur Prototipe Saat Ini
+
+```
+AkarKu/
+  app/index.html   # kerangka halaman (memuat style.css dan app.js)
+  app/style.css    # tampilan
+  app/app.js       # SELURUH logika aplikasi (JavaScript)
+  backend/Code.gs  # Google Apps Script: riwayat, PDF, asisten AI (JavaScript)
+  build.sh         # menggabungkan app/* menjadi dist/index.html untuk Apps Script
+  dist/index.html  # file gabungan hasil build.sh (jangan diedit langsung)
+```
+
+Ubah kode di `app/app.js` dan `app/style.css`, lalu jalankan `bash AkarKu/build.sh`.
+
+## Struktur Folder (rencana versi lengkap)
 
 ```
 src/              # ── JAVASCRIPT ──
@@ -134,7 +148,7 @@ Rincian: [docs/12-optimasi-smartphone.md](AkarKu/docs/12-optimasi-smartphone.md)
 ## Aturan Wajib — Asisten AI
 
 21. **AI adalah pembimbing, bukan pemberi jawaban.** Jangan mengubah instruksi `TUTOR_PROMPT` sehingga AI memberi jawaban akhir. Bantuan bertingkat 0–3, pesan ≤ 60 kata, satu langkah per pesan.
-22. **API key hanya di server.** Jangan pernah menaruh API key AI (Gemini, OpenRouter, DeepSeek, atau key apa pun) di `app/index.html`. Simpan di Properti skrip Apps Script.
+22. **API key hanya di server.** Jangan pernah menaruh API key AI (Gemini, OpenRouter, DeepSeek, atau key apa pun) di `app/app.js` atau file lain di repositori. Simpan di Properti skrip Apps Script.
 23. **Chat dimatikan saat penilaian** (kuis, paket soal, pretest, posttest, tes literasi). Jangan kirim nama/kode siswa ke layanan AI.
 
 Jika diminta membuat fitur yang bertentangan dengan aturan di atas, beri tahu pengguna tentang konfliknya terlebih dahulu.
