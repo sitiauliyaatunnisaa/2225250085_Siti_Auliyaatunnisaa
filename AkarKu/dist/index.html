@@ -1472,7 +1472,7 @@ function render(){
   renderSheet();
   if(S.aiActivated){
     S.aiActivated=false;
-    const t=document.createElement('div'); t.className='toast pop'; t.setAttribute('role','status');
+    const t=document.createElement('div'); t.className='toast'; t.setAttribute('role','status');
     t.textContent='✓ Si Akar sudah aktif di HP ini. Tekan "Tanya Si Akar" untuk mulai bertanya.';
     document.body.appendChild(t); setTimeout(()=>t.remove(),6000);
   }
