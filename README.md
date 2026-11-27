@@ -12,31 +12,80 @@ Bisa dibuka di HP Android, iPhone, tablet, maupun laptop lewat browser (Chrome/S
 
 ---
 
-## 📱 Cara Memakai (Siswa)
+## 📖 Tutorial Memakai AkarKu (Siswa)
 
-1. **Buka link** di atas di browser HP atau laptop.
-2. **Isi nama panggilan** dan **kode siswa** (dari guru, boleh dikosongkan), lalu tekan **Mulai belajar**.
-3. Di **Beranda**, pilih kegiatan:
+Urutan yang disarankan: **Masuk → Belajar → Latihan → Pojok Literasi → Paket Soal → Laporan**. Si Akar, Kalkulator, Kartu Rumus, dan Tabel Kuadrat bisa dibuka kapan saja sebagai alat bantu.
 
-| Menu | Isi |
-|---|---|
-| 📖 **Belajar** | Materi menyederhanakan bentuk akar, satu konsep per layar, contoh soal yang dibuka langkah demi langkah, kuis, dan refleksi |
-| ✏️ **Latihan Soal** | Soal acak tingkat mudah, sedang, sulit, dengan petunjuk 3 tingkat dan pembahasan |
-| 🏆 **Paket Soal** | 10 soal per tingkat (mudah, sedang, sulit). Nilai dan pembahasan muncul setelah selesai |
-| 🌏 **Pojok Literasi** | Soal cerita bergambar dengan langkah Rumuskan → Kerjakan → Tafsirkan |
-| 🧮 **Kalkulator Akar** | Menyederhanakan akar (kuadrat, pangkat 3, dst.), operasi, dan merasionalkan penyebut, lengkap dengan langkahnya |
-| 📘 **Kartu Rumus** | Flashcard rumus, ketuk untuk melihat contoh |
-| 🔢 **Tabel Kuadrat** | Tabel kuadrat yang bisa diatur sendiri |
-| 📊 **Laporan** | Grafik perkembangan nilai dan unduh laporan PDF |
-| 💬 **Tanya Si Akar** | Asisten AI yang membimbing cara berpikir, **tidak langsung memberi jawaban** |
+### 1. Masuk
+1. Buka link AkarKu di atas.
+2. Ketik **nama panggilan**, misalnya `Nisa`, lalu **kode siswa** dari guru, misalnya `S01` (boleh dikosongkan).
+3. Tekan **Mulai belajar →**. Kamu masuk ke **Beranda**.
+4. Lain kali, cukup ketuk namamu di bagian **"Pernah memakai HP ini?"**.
 
-4. **Bertanya ke Si Akar:** tekan **"Tanya Si Akar 💬"** di Beranda, atau tombol maskot di pojok atas halaman Belajar, Latihan, dan Pojok Literasi. Tulis pertanyaan atau jawabanmu, atau pilih tombol cepat seperti *"Beri aku petunjuk"*. Si Akar tidak tersedia saat mengerjakan kuis dan paket soal.
-5. **Laporan PDF:** buka menu **📊 Laporan** → **Buat laporan PDF** → **Unduh PDF**.
-6. **Ganti pengguna:** jika satu HP dipakai bergantian, tekan **👤 Ganti pengguna** di bagian bawah Beranda.
+> Di bagian bawah Beranda ada menu bulat gelap: 🏠 Beranda · 📖 Belajar · ✏️ Latihan · 🏆 Paket Soal · 📊 Laporan.
 
-**Tips:** supaya mudah dibuka lagi, tambahkan AkarKu ke layar utama HP.
-- **Android (Chrome):** menu ⋮ → **Tambahkan ke layar utama**.
-- **iPhone (Safari):** tombol Bagikan → **Tambahkan ke Layar Utama**.
+### 2. Belajar materi (📖 Belajar)
+1. Di Beranda, tekan **Mulai** pada kartu ungu *"Petualangan Bentuk Akar"*.
+2. Baca satu layar, lalu tekan **Lanjut →**. Tekan **← Kembali** kalau ingin mengulang layar sebelumnya. Bilah di kanan atas menunjukkan posisimu (misalnya 3/13).
+3. **Contoh lengkap:** langkah penyelesaian muncul satu per satu. Tekan **Langkah berikutnya ↓** untuk membuka langkah berikutnya, dan **↺ Ulangi** untuk mengulang dari awal. Bagian berwarna oranye adalah bagian yang berubah di langkah itu.
+4. **Contoh rumpang:** pilih jawaban yang tepat untuk melengkapi langkah. Kalau salah, baca penjelasannya, lalu pilih lagi.
+5. **Kuis modul (5 soal):** ketik jawaban dengan papan ketik matematika (lihat bagian 7), lalu tekan **Periksa**. Kamu tuntas jika benar minimal 4 soal.
+6. **Refleksi:** pilih angka 1–9 untuk menunjukkan seberapa berat materinya bagimu, tulis bagian yang masih membingungkan (boleh kosong), lalu tekan **Simpan dan selesai**.
+7. Selama belajar, tombol **📘 Kartu rumus** dan **🔢 Tabel kuadrat** di bagian bawah bisa dibuka kapan saja.
+
+### 3. Berlatih (✏️ Latihan Soal)
+1. Pilih tingkat **Mudah**, **Sedang**, atau **Sulit** di bagian atas.
+2. Soal muncul, misalnya *Sederhanakan √72*. Ketik jawabanmu, misalnya `6√2`, lalu tekan **Periksa**.
+3. Kalau bingung, tekan **💡 Butuh petunjuk?**. Ada 3 petunjuk bertahap: arah umum → langkah pertama → contoh soal mirip. Petunjuk **tidak mengurangi nilai**.
+4. Setelah memeriksa:
+   - **Benar:** tekan **Soal berikutnya →**.
+   - **Salah:** baca penjelasannya, lalu tekan **Coba lagi** untuk soal yang sama, atau **Coba soal mirip →** untuk soal baru.
+5. Jawaban harus dalam **bentuk paling sederhana**. Misalnya `2√18` untuk √72 dianggap belum tepat, karena 18 masih bisa disederhanakan.
+
+### 4. Soal cerita (🌏 Pojok Literasi)
+1. Baca cerita ubin Pak Budi di kartu kuning.
+2. **Langkah 1 · Rumuskan:** ketuk dua ukuran penting di cerita (kotak bergaris putus-putus), lalu pilih rumus yang tepat.
+3. **Langkah 2 · Kerjakan:** sederhanakan bentuk akarnya dengan papan ketik, lalu tekan **Periksa**.
+4. **Langkah 3 · Tafsirkan:** pilih nilai pendekatannya, lalu tentukan kesimpulan: apakah ubin bisa masuk ke kotak?
+5. Tekan **Selesai**.
+
+### 5. Ujian latihan (🏆 Paket Soal)
+1. Pilih tingkat **Mudah**, **Sedang**, atau **Sulit**. Setiap paket berisi **10 soal**.
+2. Jawab soal isian dengan papan ketik, atau pilih jawaban A–D untuk soal pilihan ganda.
+3. Pindah soal dengan **Sebelumnya** / **Berikutnya**, atau ketuk nomor **1–10**. Nomor yang sudah dijawab berwarna ungu.
+4. Setelah semua dijawab, tekan **Selesai** di soal nomor 10, atau **Selesai dan lihat nilai**.
+5. Nilai (0–100) dan **pembahasan setiap soal** langsung muncul. Tekan **↺ Ulangi** untuk mengerjakan lagi.
+
+> Selama mengerjakan Paket Soal dan Kuis, Kartu Rumus, Tabel Kuadrat, Kalkulator, dan Si Akar tidak bisa dibuka.
+
+### 6. Bertanya ke Si Akar (💬)
+1. Tekan **"Tanya Si Akar 💬"** di Beranda, atau tombol **maskot ungu** di pojok kanan atas halaman Belajar, Latihan, dan Pojok Literasi.
+2. Tulis pertanyaanmu, misalnya *"Aku bingung √72 mulai dari mana?"*, lalu tekan **➤**. Kamu juga bisa memilih tombol cepat seperti *"Beri aku petunjuk"* atau *"Cek jawabanku"*.
+3. Si Akar **tidak langsung memberi jawaban**. Ia memberi petunjuk satu langkah dan balik bertanya. Jawab pertanyaannya supaya kamu bisa menemukan jawabannya sendiri.
+4. Si Akar tahu soal yang sedang kamu kerjakan, jadi kamu tidak perlu mengetik ulang soalnya.
+
+### 7. Cara mengetik jawaban (papan ketik matematika)
+- Ketuk angka untuk menulis angka, dan **√** untuk menulis tanda akar.
+- Contoh: untuk menulis `6√2`, ketuk **6**, **√**, lalu **2**.
+- **⌫** menghapus satu karakter, dan **C** menghapus semuanya.
+
+### 8. Alat bantu
+- **🧮 Kalkulator Akar** (dari Beranda):
+  - pilih tab **Sederhanakan**, **Operasi** (+ − × ÷), atau **Rasionalkan**;
+  - isi angkanya, lalu tekan **= Hitung**;
+  - hasil, langkah-langkah, nilai desimal, dan letaknya di garis bilangan akan muncul.
+- **📘 Kartu Rumus:** ketuk kartu untuk melihat contoh pemakaian rumusnya.
+- **🔢 Tabel Kuadrat:** atur rentang angka *dari… sampai…*, atau ketuk sebuah angka untuk melihat cara menghitungnya.
+
+### 9. Melihat perkembangan (📊 Laporan)
+1. Tekan **📊** di menu bawah.
+2. Lihat ringkasan nilai, **grafik nilai paket soal** (ketuk batang grafik untuk melihat nilainya), dan nilai terbaik setiap tingkat.
+3. Tekan **Buat laporan PDF**, lalu **⬇ Unduh PDF** untuk menyimpan laporan ke HP.
+
+### 10. Ganti pengguna
+Jika satu HP dipakai bergantian, tekan **👤 Ganti pengguna** di bagian bawah Beranda supaya nilai tercatat atas nama masing-masing.
+
+> **Tips:** tambahkan AkarKu ke layar utama HP supaya mudah dibuka. Di Android (Chrome): menu ⋮ → **Tambahkan ke layar utama**. Di iPhone (Safari): **Bagikan** → **Tambahkan ke Layar Utama**.
 
 ---
 
