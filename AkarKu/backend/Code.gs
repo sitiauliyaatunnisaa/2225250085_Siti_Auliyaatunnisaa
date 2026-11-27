@@ -60,10 +60,15 @@ function cleanupPdf_(folder) {
 
 /** Membuka link /exec = menampilkan aplikasi AkarKu. */
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile('index')
-    .setTitle('AkarKu')
-    .addMetaTag('viewport', 'width=device-width, initial-scale=1, viewport-fit=cover')
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  try {
+    return HtmlService.createHtmlOutputFromFile('index')
+      .setTitle('AkarKu')
+      .addMetaTag('viewport', 'width=device-width, initial-scale=1, viewport-fit=cover')
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  } catch (err) {
+    // Tanpa file "index": Apps Script hanya menjadi server untuk AkarKu di GitHub Pages.
+    return json_({ ok: true, app: 'akarku', mode: 'server' });
+  }
 }
 
 /* ---------- Dipanggil aplikasi lewat google.script.run ---------- */
@@ -143,7 +148,15 @@ function readData_(key) {
 }
 
 function sheet_() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  // Bisa dipasang dari Google Sheets (Ekstensi → Apps Script) atau langsung dari script.new.
+  // Jika tidak terhubung ke spreadsheet, spreadsheet "AkarKu – Riwayat" dibuat otomatis di Google Drive.
+  let ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    const props = PropertiesService.getScriptProperties();
+    const id = props.getProperty('SHEET_ID');
+    if (id) { try { ss = SpreadsheetApp.openById(id); } catch (err) { ss = null; } }
+    if (!ss) { ss = SpreadsheetApp.create('AkarKu – Riwayat'); props.setProperty('SHEET_ID', ss.getId()); }
+  }
   let sh = ss.getSheetByName(SHEET_NAME);
   if (!sh) {
     sh = ss.insertSheet(SHEET_NAME);
