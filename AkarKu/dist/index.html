@@ -1155,18 +1155,14 @@ function viewPemilik(){
     <div><span class="tag">${online?'Semua perangkat':'Riwayat di perangkat ini'}</span><h2>Pengunjung, jawaban, dan nilai</h2></div>
     ${srcSeg}${onlineBox}${pending}
     ${(online&&o.online)||!SYNC_ON?`<div class="card t-biru"><div class="vhead"><h3>🤖 Pengaturan Asisten AI (Si Akar)</h3>${MASCOT('').replace('<svg','<svg style="width:44px;height:44px;flex:0 0 44px"')}</div>
-      <p class="small muted">${SYNC_ON?'Cukup diisi sekali. API key disimpan aman di Google Apps Script milikmu, tidak terlihat oleh siswa.':`API key disimpan <b>hanya di perangkat ini</b> (tidak dikirim ke GitHub). Isi di setiap HP/laptop yang akan memakai Si Akar.${aiLocal()?` <br>✓ Si Akar aktif di perangkat ini (${AI_NAME[aiLocal().provider]}). <button class="linkbtn" data-act="aiForget" style="min-height:auto">Hapus key dari perangkat ini</button>`:''}`}</p>
+      ${!SYNC_ON&&aiBuiltIn()?`<p class="small"><b>✓ Si Akar aktif untuk semua pengunjung</b> (${AI_NAME[aiBuiltIn().provider]}${aiBuiltIn().model?' · '+esc(aiBuiltIn().model):''}). API key diatur dari GitHub Secrets, siswa tidak perlu mengisi apa pun.</p><button class="btn ghost" data-act="aiTest" ${o.ai.busy?'disabled':''}>Uji Si Akar</button>${o.ai.msg?`<p class="small">${o.ai.msg}</p>`:''}<details><summary class="small" style="font-weight:800;cursor:pointer">Pakai key lain hanya di perangkat ini</summary>`:''}
+      <p class="small muted">${SYNC_ON?'Cukup diisi sekali. API key disimpan aman di Google Apps Script milikmu, tidak terlihat oleh siswa.':`API key disimpan <b>hanya di perangkat ini</b>.${aiLocalOnly()?` <br>✓ Key khusus perangkat ini sedang dipakai. <button class="linkbtn" data-act="aiForget" style="min-height:auto">Hapus key dari perangkat ini</button>`:''}`}</p>
       <p class="small" style="font-weight:800">1. Pilih layanan AI</p>
       <div class="seg" role="group" aria-label="Layanan AI">${['openrouter','gemini','deepseek'].map(p=>`<button data-act="aiProv" data-p="${p}" aria-pressed="${o.ai.provider===p}">${AI_NAME[p]}</button>`).join('')}</div>
       <label class="flabel" for="aiKey">2. Tempel API key<input id="aiKey" class="field" type="password" autocomplete="off" placeholder="${{openrouter:'sk-or-v1-…',gemini:'AIza…',deepseek:'sk-…'}[o.ai.provider]}" value="${esc(o.ai.key)}"></label>
       <label class="flabel" for="aiModel">3. Nama model <span class="muted small" style="font-weight:600">(salin dari tombol API di halaman model OpenRouter; kosongkan untuk model bawaan)</span><input id="aiModel" class="field" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${AI_DEFAULT[o.ai.provider]}" value="${esc(o.ai.model)}"></label>
       <div class="row"><button class="btn primary" data-act="aiSave" ${o.ai.busy?'disabled':''}>Simpan</button><button class="btn ghost" data-act="aiTest" ${o.ai.busy?'disabled':''}>Uji Si Akar</button></div>
-      ${o.ai.msg?`<p class="small">${o.ai.msg}</p>`:''}
-      ${!SYNC_ON&&aiLocal()?`<div class="card" style="box-shadow:none;background:var(--surface)"><h3>📣 Aktifkan Si Akar untuk semua siswa</h3>
-        <p class="small muted">Bagikan link di bawah ke siswa (misalnya lewat grup WhatsApp kelas). Begitu dibuka, Si Akar langsung aktif di HP mereka tanpa perlu mengisi apa pun.</p>
-        <textarea id="aiShare" class="field" readonly style="min-height:90px;font-family:ui-monospace,monospace;font-size:.75rem">${esc(aiShareLink())}</textarea>
-        <button class="btn ungu" data-act="aiCopy">📋 Salin link aktivasi</button>
-        <p class="small muted">Link ini berisi API key, jadi bagikan hanya ke siswa dan guru. Jangan unggah ke tempat umum. Batasi key di OpenRouter (Key limit $1, model <b>:free</b>) agar aman.</p></div>`:''}</div>`:''}
+      ${!(!SYNC_ON&&aiBuiltIn())&&o.ai.msg?`<p class="small">${o.ai.msg}</p>`:''}${!SYNC_ON&&aiBuiltIn()?'</details>':''}</div>`:''}
     ${showData?`<div class="stats">
       <div class="stat t-lav"><b>${ids.length}</b><span>Pengunjung</span></div>
       <div class="stat t-biru"><b>${visits}</b><span>Total kunjungan</span></div>
@@ -1313,9 +1309,11 @@ async function saveCsv(kind){
    (localStorage), lalu aplikasi menghubungi layanan AI langsung dari browser. Key tidak pernah masuk ke GitHub. */
 const AI_LKEY='akarku-ai-lokal';
 const AI_URLS={openrouter:'https://openrouter.ai/api/v1/chat/completions',gemini:'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',deepseek:'https://api.deepseek.com/chat/completions'};
-function aiLocal(){ try{ const c=JSON.parse(localStorage.getItem(AI_LKEY)||'null'); return c&&c.key&&AI_URLS[c.provider]?c:null; }catch(_){ return null; } }
+/* Key bawaan situs: diisi otomatis dari GitHub Secrets saat diterbitkan (config.js), tidak ada di repositori */
+function aiBuiltIn(){ const c=window.AKARKU_AI; return c&&c.key&&AI_URLS[c.provider]?{provider:c.provider,key:String(c.key),model:String(c.model||'')}:null; }
+function aiLocalOnly(){ try{ const c=JSON.parse(localStorage.getItem(AI_LKEY)||'null'); return c&&c.key&&AI_URLS[c.provider]?c:null; }catch(_){ return null; } }
+function aiLocal(){ return aiLocalOnly()||aiBuiltIn(); }
 const aiOn=()=>SYNC_ON||!!aiLocal();
-function aiShareLink(){ const c=aiLocal(); if(!c) return ''; const code=btoa(unescape(encodeURIComponent(JSON.stringify({p:c.provider,k:c.key,m:c.model||''})))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); return location.origin+location.pathname+'#ai='+code; }
 const AI_ERR={nogrant:'Si Akar butuh izin memakai Claude. Tekan Izinkan saat muncul pertanyaan, atau masuk ke akun Claude.',sesi:'Sesi Claude berakhir. Masuk lagi ke akun Claude, lalu coba lagi.',nokey:'Asisten belum diaktifkan pemilik (API key AI belum dipasang).',limit:'Kamu sudah banyak bertanya. Coba kerjakan sendiri dulu, lalu tanya lagi nanti 😊',sibuk:'Si Akar sedang ramai dipakai. Tunggu 1 menit, lalu coba lagi ya 😊',saldo:'Saldo layanan AI pemilik habis. Beri tahu guru/peneliti.',keysalah:'API key AI tidak valid, atau model gratis belum diizinkan di pengaturan privasi OpenRouter.',model:'Nama model AI tidak ditemukan. Periksa nama model di Mode Pemilik.',network:'Server tidak bisa menghubungi layanan AI. Coba lagi.',api:'Layanan AI sedang bermasalah. Coba lagi sebentar lagi.'};
 const AI_DEFAULT={openrouter:'deepseek/deepseek-chat-v3-0324:free',gemini:'gemini-2.5-flash',deepseek:'deepseek-chat'};
 const AI_NAME={openrouter:'OpenRouter',gemini:'Gemini',deepseek:'DeepSeek'};
@@ -1607,7 +1605,6 @@ document.addEventListener('click',e=>{
     case 'aiProv': S.owner.ai.provider=el.dataset.p; S.owner.ai.msg=''; render(); break;
     case 'aiSave': aiSave(); break;
     case 'aiTest': aiTest(); break;
-    case 'aiCopy': { const ta=document.getElementById('aiShare'); const t=ta?ta.value:''; const fb=()=>{ if(ta){ta.focus();ta.select()} S.owner.ai.msg='Link sudah dipilih. Tekan lama lalu pilih Salin.'; render(); }; try{ navigator.clipboard.writeText(t).then(()=>{S.owner.ai.msg='✓ Link aktivasi disalin. Tempel ke grup WhatsApp kelas.';render()},fb) }catch(_){ fb() } break; }
     case 'aiForget': try{localStorage.removeItem(AI_LKEY)}catch(_){} S.owner.ai.msg='Key dihapus dari perangkat ini.'; render(); break;
     case 'otoggle': { const id=el.dataset.id; S.owner.open[id]=!S.owner.open[id]; render(); break; }
     case 'csv': saveCsv(el.dataset.k); break;

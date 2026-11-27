@@ -16,7 +16,7 @@ out=dist/index.html
   echo '</style>'
   echo '</head>'
   echo '<body>'
-  sed -n '/<body>/,/<\/body>/p' app/index.html | sed '1d;$d' | grep -v '<script src="app.js"></script>'
+  sed -n '/<body>/,/<\/body>/p' app/index.html | sed '1d;$d' | grep -v '<script src="app.js"></script>' | grep -v '<script src="config.js"></script>'
   echo '<script>'
   cat app/app.js
   echo '</script>'

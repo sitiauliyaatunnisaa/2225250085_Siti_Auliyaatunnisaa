@@ -1,0 +1,44 @@
+# Menerbitkan AkarKu ke GitHub Pages.
+# API key OpenRouter diambil dari GitHub Secrets (Settings → Secrets and variables → Actions)
+# lalu ditulis ke AkarKu/app/config.js HANYA di situs yang diterbitkan, tidak pernah di repositori.
+name: Terbitkan AkarKu
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pasang pengaturan Si Akar dari GitHub Secrets
+        env:
+          AI_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          AI_MODEL: ${{ vars.OPENROUTER_MODEL }}
+        run: |
+          node -e "require('fs').writeFileSync('AkarKu/app/config.js','window.AKARKU_AI='+JSON.stringify({provider:'openrouter',key:process.env.AI_KEY||'',model:process.env.AI_MODEL||''})+';\n')"
+          if [ -z "$AI_KEY" ]; then echo "::warning::Secret OPENROUTER_API_KEY belum diisi, Si Akar tidak aktif."; fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
