@@ -289,3 +289,6 @@ table.tbl{border-collapse:collapse;font-size:.875rem;min-width:520px;width:100%}
 .cf{position:absolute;top:-16px;width:10px;height:14px;border-radius:3px;animation:fall 1.5s cubic-bezier(.2,.6,.4,1) forwards}
 @keyframes fall{to{transform:translate(var(--dx),105vh) rotate(var(--rot));opacity:.9}}
 @media (prefers-reduced-motion: reduce){.cf{display:none}.pop{animation:none}.ans .caret{animation:none}}
+
+/* Pemberitahuan singkat */
+.toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:70;background:var(--dark);color:#fff;padding:12px 18px;border-radius:18px;font-weight:800;font-size:.9375rem;max-width:calc(100% - 32px);box-shadow:0 10px 30px rgba(31,26,46,.35)}

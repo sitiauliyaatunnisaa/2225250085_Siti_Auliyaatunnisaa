@@ -850,7 +850,12 @@ function viewPemilik(){
       <label class="flabel" for="aiKey">2. Tempel API key<input id="aiKey" class="field" type="password" autocomplete="off" placeholder="${{openrouter:'sk-or-v1-…',gemini:'AIza…',deepseek:'sk-…'}[o.ai.provider]}" value="${esc(o.ai.key)}"></label>
       <label class="flabel" for="aiModel">3. Nama model <span class="muted small" style="font-weight:600">(salin dari tombol API di halaman model OpenRouter; kosongkan untuk model bawaan)</span><input id="aiModel" class="field" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${AI_DEFAULT[o.ai.provider]}" value="${esc(o.ai.model)}"></label>
       <div class="row"><button class="btn primary" data-act="aiSave" ${o.ai.busy?'disabled':''}>Simpan</button><button class="btn ghost" data-act="aiTest" ${o.ai.busy?'disabled':''}>Uji Si Akar</button></div>
-      ${o.ai.msg?`<p class="small">${o.ai.msg}</p>`:''}</div>`:''}
+      ${o.ai.msg?`<p class="small">${o.ai.msg}</p>`:''}
+      ${!SYNC_ON&&aiLocal()?`<div class="card" style="box-shadow:none;background:var(--surface)"><h3>📣 Aktifkan Si Akar untuk semua siswa</h3>
+        <p class="small muted">Bagikan link di bawah ke siswa (misalnya lewat grup WhatsApp kelas). Begitu dibuka, Si Akar langsung aktif di HP mereka tanpa perlu mengisi apa pun.</p>
+        <textarea id="aiShare" class="field" readonly style="min-height:90px;font-family:ui-monospace,monospace;font-size:.75rem">${esc(aiShareLink())}</textarea>
+        <button class="btn ungu" data-act="aiCopy">📋 Salin link aktivasi</button>
+        <p class="small muted">Link ini berisi API key, jadi bagikan hanya ke siswa dan guru. Jangan unggah ke tempat umum. Batasi key di OpenRouter (Key limit $1, model <b>:free</b>) agar aman.</p></div>`:''}</div>`:''}
     ${showData?`<div class="stats">
       <div class="stat t-lav"><b>${ids.length}</b><span>Pengunjung</span></div>
       <div class="stat t-biru"><b>${visits}</b><span>Total kunjungan</span></div>
@@ -999,6 +1004,7 @@ const AI_LKEY='akarku-ai-lokal';
 const AI_URLS={openrouter:'https://openrouter.ai/api/v1/chat/completions',gemini:'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',deepseek:'https://api.deepseek.com/chat/completions'};
 function aiLocal(){ try{ const c=JSON.parse(localStorage.getItem(AI_LKEY)||'null'); return c&&c.key&&AI_URLS[c.provider]?c:null; }catch(_){ return null; } }
 const aiOn=()=>SYNC_ON||!!aiLocal();
+function aiShareLink(){ const c=aiLocal(); if(!c) return ''; const code=btoa(unescape(encodeURIComponent(JSON.stringify({p:c.provider,k:c.key,m:c.model||''})))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); return location.origin+location.pathname+'#ai='+code; }
 const AI_ERR={nogrant:'Si Akar butuh izin memakai Claude. Tekan Izinkan saat muncul pertanyaan, atau masuk ke akun Claude.',sesi:'Sesi Claude berakhir. Masuk lagi ke akun Claude, lalu coba lagi.',nokey:'Asisten belum diaktifkan pemilik (API key AI belum dipasang).',limit:'Kamu sudah banyak bertanya. Coba kerjakan sendiri dulu, lalu tanya lagi nanti 😊',sibuk:'Si Akar sedang ramai dipakai. Tunggu 1 menit, lalu coba lagi ya 😊',saldo:'Saldo layanan AI pemilik habis. Beri tahu guru/peneliti.',keysalah:'API key AI tidak valid, atau model gratis belum diizinkan di pengaturan privasi OpenRouter.',model:'Nama model AI tidak ditemukan. Periksa nama model di Mode Pemilik.',network:'Server tidak bisa menghubungi layanan AI. Coba lagi.',api:'Layanan AI sedang bermasalah. Coba lagi sebentar lagi.'};
 const AI_DEFAULT={openrouter:'deepseek/deepseek-chat-v3-0324:free',gemini:'gemini-2.5-flash',deepseek:'deepseek-chat'};
 const AI_NAME={openrouter:'OpenRouter',gemini:'Gemini',deepseek:'DeepSeek'};
@@ -1153,6 +1159,12 @@ function render(){
   const v=S.view, app=document.getElementById('app');
   app.innerHTML=v==='soal'?viewSoal():v==='belajar'?viewBelajar():v==='latihan'?viewLatihan():v==='literasi'?viewLiterasi():v==='kalkulator'?viewKalkulator():v==='pemilik'?viewPemilik():v==='laporan'?viewLaporan():viewBeranda();
   renderSheet();
+  if(S.aiActivated){
+    S.aiActivated=false;
+    const t=document.createElement('div'); t.className='toast pop'; t.setAttribute('role','status');
+    t.textContent='✓ Si Akar sudah aktif di HP ini. Tekan "Tanya Si Akar" untuk mulai bertanya.';
+    document.body.appendChild(t); setTimeout(()=>t.remove(),6000);
+  }
 }
 document.addEventListener('input',e=>{
   const id=e.target.id, v=e.target.value, c=S.calc;
@@ -1284,6 +1296,7 @@ document.addEventListener('click',e=>{
     case 'aiProv': S.owner.ai.provider=el.dataset.p; S.owner.ai.msg=''; render(); break;
     case 'aiSave': aiSave(); break;
     case 'aiTest': aiTest(); break;
+    case 'aiCopy': { const ta=document.getElementById('aiShare'); const t=ta?ta.value:''; const fb=()=>{ if(ta){ta.focus();ta.select()} S.owner.ai.msg='Link sudah dipilih. Tekan lama lalu pilih Salin.'; render(); }; try{ navigator.clipboard.writeText(t).then(()=>{S.owner.ai.msg='✓ Link aktivasi disalin. Tempel ke grup WhatsApp kelas.';render()},fb) }catch(_){ fb() } break; }
     case 'aiForget': try{localStorage.removeItem(AI_LKEY)}catch(_){} S.owner.ai.msg='Key dihapus dari perangkat ini.'; render(); break;
     case 'otoggle': { const id=el.dataset.id; S.owner.open[id]=!S.owner.open[id]; render(); break; }
     case 'csv': saveCsv(el.dataset.k); break;
@@ -1309,6 +1322,12 @@ document.addEventListener('keydown',e=>{
 
 /* Mulai */
 (function init(){
+  /* Link aktivasi Si Akar dari pemilik: ...#ai=<kode>. Kode disimpan di perangkat ini lalu dihapus dari alamat. */
+  if(location.hash.startsWith('#ai=')){
+    try{ const c=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(4).replace(/-/g,'+').replace(/_/g,'/')))));
+      if(c&&c.k&&AI_URLS[c.p]){ localStorage.setItem(AI_LKEY,JSON.stringify({provider:c.p,key:String(c.k),model:String(c.m||'')})); S.aiActivated=true; } }catch(_){}
+    try{ history.replaceState(null,'',location.pathname+location.search+'#beranda'); }catch(_){ location.hash='beranda'; }
+  }
   if(P.current&&!P.users[P.current]) P.current=null;
   if(P.current){ P.users[P.current].lastSeen=Date.now(); logEv('kunjungan','Membuka aplikasi','',null); }
   const v=location.hash.slice(1);
