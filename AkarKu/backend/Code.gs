@@ -201,7 +201,7 @@ function json_(o) {
  * ===================================================================== */
 const AI_PROVIDERS = {
   gemini:     { url: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', model: 'gemini-2.5-flash', json: true },
-  openrouter: { url: 'https://openrouter.ai/api/v1/chat/completions', model: 'deepseek/deepseek-chat-v3-0324:free', json: false },
+  openrouter: { url: 'https://openrouter.ai/api/v1/chat/completions', model: 'nvidia/nemotron-3-ultra-550b-a55b:free', json: false },
   deepseek:   { url: 'https://api.deepseek.com/chat/completions', model: 'deepseek-chat', json: true }
 };
 const AI_MAX_PER_HOUR = 40;     // batas pertanyaan per siswa per jam (agar kuota gratis tidak cepat habis)

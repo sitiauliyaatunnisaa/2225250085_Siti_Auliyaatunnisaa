@@ -1315,7 +1315,7 @@ function aiLocalOnly(){ try{ const c=JSON.parse(localStorage.getItem(AI_LKEY)||'
 function aiLocal(){ return aiLocalOnly()||aiBuiltIn(); }
 const aiOn=()=>SYNC_ON||!!aiLocal();
 const AI_ERR={nogrant:'Si Akar butuh izin memakai Claude. Tekan Izinkan saat muncul pertanyaan, atau masuk ke akun Claude.',sesi:'Sesi Claude berakhir. Masuk lagi ke akun Claude, lalu coba lagi.',nokey:'Asisten belum diaktifkan pemilik (API key AI belum dipasang).',limit:'Kamu sudah banyak bertanya. Coba kerjakan sendiri dulu, lalu tanya lagi nanti 😊',sibuk:'Si Akar sedang ramai dipakai. Tunggu 1 menit, lalu coba lagi ya 😊',saldo:'Saldo layanan AI pemilik habis. Beri tahu guru/peneliti.',keysalah:'API key AI tidak valid, atau model gratis belum diizinkan di pengaturan privasi OpenRouter.',model:'Nama model AI tidak ditemukan. Periksa nama model di Mode Pemilik.',network:'Server tidak bisa menghubungi layanan AI. Coba lagi.',api:'Layanan AI sedang bermasalah. Coba lagi sebentar lagi.'};
-const AI_DEFAULT={openrouter:'deepseek/deepseek-chat-v3-0324:free',gemini:'gemini-2.5-flash',deepseek:'deepseek-chat'};
+const AI_DEFAULT={openrouter:'nvidia/nemotron-3-ultra-550b-a55b:free',gemini:'gemini-2.5-flash',deepseek:'deepseek-chat'};
 const AI_NAME={openrouter:'OpenRouter',gemini:'Gemini',deepseek:'DeepSeek'};
 async function apiCall(fn,type,arg){
   if(GAS) return gasCall(fn,arg);
