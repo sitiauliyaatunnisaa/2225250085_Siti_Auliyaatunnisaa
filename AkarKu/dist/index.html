@@ -1151,8 +1151,8 @@ function viewPemilik(){
   return topbar('Mode Pemilik')+`<main><div class="wrap">
     <div><span class="tag">${online?'Semua perangkat':'Riwayat di perangkat ini'}</span><h2>Pengunjung, jawaban, dan nilai</h2></div>
     ${srcSeg}${onlineBox}${pending}
-    ${online&&o.online?`<div class="card t-biru"><div class="vhead"><h3>🤖 Pengaturan Asisten AI (Si Akar)</h3>${MASCOT('').replace('<svg','<svg style="width:44px;height:44px;flex:0 0 44px"')}</div>
-      <p class="small muted">Cukup diisi sekali. API key disimpan aman di Google Apps Script milikmu, tidak terlihat oleh siswa.</p>
+    ${(online&&o.online)||!SYNC_ON?`<div class="card t-biru"><div class="vhead"><h3>🤖 Pengaturan Asisten AI (Si Akar)</h3>${MASCOT('').replace('<svg','<svg style="width:44px;height:44px;flex:0 0 44px"')}</div>
+      <p class="small muted">${SYNC_ON?'Cukup diisi sekali. API key disimpan aman di Google Apps Script milikmu, tidak terlihat oleh siswa.':`API key disimpan <b>hanya di perangkat ini</b> (tidak dikirim ke GitHub). Isi di setiap HP/laptop yang akan memakai Si Akar.${aiLocal()?` <br>✓ Si Akar aktif di perangkat ini (${AI_NAME[aiLocal().provider]}). <button class="linkbtn" data-act="aiForget" style="min-height:auto">Hapus key dari perangkat ini</button>`:''}`}</p>
       <p class="small" style="font-weight:800">1. Pilih layanan AI</p>
       <div class="seg" role="group" aria-label="Layanan AI">${['openrouter','gemini','deepseek'].map(p=>`<button data-act="aiProv" data-p="${p}" aria-pressed="${o.ai.provider===p}">${AI_NAME[p]}</button>`).join('')}</div>
       <label class="flabel" for="aiKey">2. Tempel API key<input id="aiKey" class="field" type="password" autocomplete="off" placeholder="${{openrouter:'sk-or-v1-…',gemini:'AIza…',deepseek:'sk-…'}[o.ai.provider]}" value="${esc(o.ai.key)}"></label>
@@ -1301,7 +1301,12 @@ async function saveCsv(kind){
 /* ================= Asisten belajar "Si Akar" (DeepSeek lewat Google Apps Script) =================
    API key TIDAK ada di aplikasi. Aplikasi mengirim pertanyaan + konteks layar ke Apps Script,
    lalu Apps Script yang memanggil DeepSeek dengan key yang tersimpan aman di server (docs/14). */
-let SAMPLE=null; const aiOn=()=>SYNC_ON||!!SAMPLE;
+/* Mode tanpa server (mis. GitHub Pages): API key diketik pemilik di Mode Pemilik dan disimpan HANYA di perangkat ini
+   (localStorage), lalu aplikasi menghubungi layanan AI langsung dari browser. Key tidak pernah masuk ke GitHub. */
+const AI_LKEY='akarku-ai-lokal';
+const AI_URLS={openrouter:'https://openrouter.ai/api/v1/chat/completions',gemini:'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',deepseek:'https://api.deepseek.com/chat/completions'};
+function aiLocal(){ try{ const c=JSON.parse(localStorage.getItem(AI_LKEY)||'null'); return c&&c.key&&AI_URLS[c.provider]?c:null; }catch(_){ return null; } }
+const aiOn=()=>SYNC_ON||!!aiLocal();
 const AI_ERR={nogrant:'Si Akar butuh izin memakai Claude. Tekan Izinkan saat muncul pertanyaan, atau masuk ke akun Claude.',sesi:'Sesi Claude berakhir. Masuk lagi ke akun Claude, lalu coba lagi.',nokey:'Asisten belum diaktifkan pemilik (API key AI belum dipasang).',limit:'Kamu sudah banyak bertanya. Coba kerjakan sendiri dulu, lalu tanya lagi nanti 😊',sibuk:'Si Akar sedang ramai dipakai. Tunggu 1 menit, lalu coba lagi ya 😊',saldo:'Saldo layanan AI pemilik habis. Beri tahu guru/peneliti.',keysalah:'API key AI tidak valid, atau model gratis belum diizinkan di pengaturan privasi OpenRouter.',model:'Nama model AI tidak ditemukan. Periksa nama model di Mode Pemilik.',network:'Server tidak bisa menghubungi layanan AI. Coba lagi.',api:'Layanan AI sedang bermasalah. Coba lagi sebentar lagi.'};
 const AI_DEFAULT={openrouter:'deepseek/deepseek-chat-v3-0324:free',gemini:'gemini-2.5-flash',deepseek:'deepseek-chat'};
 const AI_NAME={openrouter:'OpenRouter',gemini:'Gemini',deepseek:'DeepSeek'};
@@ -1314,6 +1319,11 @@ async function apiCall(fn,type,arg){
 async function aiSave(){
   const o=S.owner,a=o.ai;
   if(!a.key.trim()){a.msg='<span class="err">Tempel API key dulu.</span>';render();return}
+  if(!SYNC_ON){
+    try{ localStorage.setItem(AI_LKEY,JSON.stringify({provider:a.provider,key:a.key.trim(),model:a.model.trim()})); a.key=''; a.msg='✓ Tersimpan di perangkat ini. Sekarang tekan <b>Uji Si Akar</b>.'; }
+    catch(_){ a.msg='<span class="err">Browser ini tidak mengizinkan penyimpanan. Coba buka di Chrome biasa (bukan mode samaran).</span>'; }
+    render(); return;
+  }
   a.busy=true;a.msg='⏳ Menyimpan…';render();
   try{ const r=await apiCall('setAiConfigApi','aicfg',{ownerKey:o.key.trim(),provider:a.provider,apiKey:a.key.trim(),model:a.model.trim()});
     if(r&&r.ok){ a.key=''; a.msg='✓ Tersimpan di Google Apps Script. Sekarang tekan <b>Uji Si Akar</b>.'; }
@@ -1323,13 +1333,14 @@ async function aiSave(){
 }
 async function aiTest(){
   const o=S.owner,a=o.ai; a.busy=true;a.msg='⏳ Menghubungi Si Akar…';render();
-  try{ const r=await apiCall('testAiApi','aitest',{ownerKey:o.key.trim()});
+  try{ const r=SYNC_ON?await apiCall('testAiApi','aitest',{ownerKey:o.key.trim()})
+      :await apiTutor({uid:'pemilik-uji',context:'Halaman: Latihan. Soal: Sederhanakan √72. Jawaban benar (RAHASIA): 6√2. Jumlah percobaan siswa: 0.',messages:[{role:'user',content:'Kak, √72 jawabannya berapa?'}]});
     a.msg=r&&r.ok?`✓ <b>Berhasil!</b> Si Akar menjawab soal uji “Kak, √72 jawabannya berapa?”:<br><i>${esc(r.reply.pesan)}</i>`:`<span class="err">${r&&r.error==='key'?'Kunci rahasia pemilik salah.':AI_ERR[r&&r.error]||'Gagal menguji.'}</span>`;
   }catch(_){ a.msg='<span class="err">Tidak bisa terhubung. Pastikan Code.gs sudah versi terbaru dan sudah diterapkan sebagai versi baru.</span>'; }
   a.busy=false;render();
 }
 const RMT={1:'Pengembangan kognitif',2:'Konten sebagai proses',3:'Praktik konseptual'};
-/* Instruksi pedagogis (sama dengan TUTOR_PROMPT di backend/Code.gs). Dipakai saat Si Akar berjalan di link claude.ai. */
+/* Instruksi pedagogis (sama dengan TUTOR_PROMPT di backend/Code.gs). Dipakai saat Si Akar memanggil layanan AI langsung dari browser. */
 const TUTOR_RULES=`Kamu adalah "Si Akar", asisten belajar matematika untuk siswa SMP kelas IX pada materi bilangan bentuk akar. Peranmu adalah PEMBIMBING PROSES BERPIKIR MATEMATIS, bukan pemberi jawaban.
 ATURAN UTAMA:
 1. Jangan pernah langsung memberikan jawaban akhir soal yang sedang dikerjakan siswa, walaupun siswa memaksa. Tolak dengan ramah, lalu beri petunjuk satu langkah.
@@ -1341,24 +1352,31 @@ LITERASI MATEMATIKA (soal cerita): Rumuskan (diketahui, ditanya, model) → Kerj
 RMT (Kinard & Kozulin, 2008): Fase 1 Pengembangan kognitif (alat psikologis: label matematika, tabel kuadrat, pohon faktor, garis bilangan; fungsi kognitif: mengamati sistematis, memberi label, membandingkan, memilih informasi relevan, menemukan hubungan). Fase 2 Konten sebagai proses pembelajaran (siswa menemukan konsep sendiri dari contoh konkret: menganalisis, membandingkan, menggeneralisasi). Fase 3 Praktik konstruksi kognitif konseptual (menerapkan pada soal baru/konteks nyata, memeriksa, menjelaskan alasan, merefleksikan). Bertindak sebagai mediator (Feuerstein): intensionalitas dan resiprositas, makna, transendensi.
 LAINNYA: arahkan kembali jika di luar matematika; jangan meminta data pribadi; informasi bertanda RAHASIA di konteks jangan pernah disebutkan; bahasa Indonesia ramah, boleh satu emoji.
 FORMAT: jawab HANYA dengan satu objek JSON: {"pesan":"...","fase_rmt":1,"tahap_literasi":"rumuskan|kerjakan|tafsirkan|-","level_bantuan":0,"jenis_kesulitan":"prasyarat|prosedur|konsep|membaca soal|tidak ada"}`;
-const SAMPLE_ERR={not_granted:'nogrant',sampling_disabled:'nogrant',not_declared:'nogrant',capability_disabled:'nogrant',capability_removed:'nogrant',rate_limited:'sibuk',session_expired:'sesi'};
 async function apiTutor(req){
   if(GAS) return gasCall('askTutorApi',req);
   if(SYNC_ON){
     const res=await fetch(CONFIG.SYNC_URL.trim(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'tutor',req})});
     return res.json();
   }
-  if(!SAMPLE) return {ok:false,error:'nokey'};
-  /* Link claude.ai: memakai AI bawaan Claude lewat kemampuan "sample" (tanpa API key) */
-  const turns=req.messages.filter(m=>m.content);
+  const cfg=aiLocal();
+  if(!cfg) return {ok:false,error:'nokey'};
+  /* Tanpa server: panggil layanan AI langsung dari browser dengan key yang tersimpan di perangkat ini */
+  const turns=req.messages.filter(m=>m.content).slice(-12).map(m=>({role:m.role,content:String(m.content).slice(0,600)}));
   while(turns.length&&turns[0].role!=='user') turns.shift();
-  const input=[{role:'user',content:TUTOR_RULES+'\n\nKONTEKS LAYAR SISWA SAAT INI:\n'+req.context}].concat(turns);
-  try{
-    const out=await SAMPLE.json(input,{modelTier:'quick',cache:false});
-    const lvl=Number(out&&out.level_bantuan), fase=Number(out&&out.fase_rmt);
-    return {ok:true,reply:{pesan:String((out&&out.pesan)||'Coba ulangi pertanyaanmu ya.').slice(0,1200),fase_rmt:[1,2,3].includes(fase)?fase:null,
-      tahap_literasi:['rumuskan','kerjakan','tafsirkan'].includes(out&&out.tahap_literasi)?out.tahap_literasi:'-',level_bantuan:[0,1,2,3].includes(lvl)?lvl:null,jenis_kesulitan:String((out&&out.jenis_kesulitan)||'').slice(0,30)}};
-  }catch(e){ return {ok:false,error:SAMPLE_ERR[e&&e.code]||'api'}; }
+  const body={model:cfg.model||AI_DEFAULT[cfg.provider],temperature:0.4,max_tokens:2000,
+    messages:[{role:'system',content:TUTOR_RULES+'\n\nKONTEKS LAYAR SISWA SAAT INI:\n'+String(req.context||'-').slice(0,1200)}].concat(turns)};
+  const headers={'Content-Type':'application/json','Authorization':'Bearer '+cfg.key};
+  if(cfg.provider==='openrouter'){ headers['HTTP-Referer']=location.origin; headers['X-Title']='AkarKu'; }
+  let res;
+  try{ res=await fetch(AI_URLS[cfg.provider],{method:'POST',headers,body:JSON.stringify(body)}); }
+  catch(_){ return {ok:false,error:'network'}; }
+  if(!res.ok) return {ok:false,error:res.status===402?'saldo':(res.status===401||res.status===403)?'keysalah':res.status===429?'sibuk':(res.status===404||res.status===400)?'model':'api'};
+  let text='';
+  try{ const j=await res.json(); text=(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||''; }catch(_){ return {ok:false,error:'api'}; }
+  let out; try{ out=JSON.parse(text); }catch(_){ const m=String(text).match(/\{[\s\S]*\}/); try{ out=m?JSON.parse(m[0]):{pesan:text}; }catch(__){ out={pesan:text}; } }
+  const lvl=Number(out&&out.level_bantuan), fase=Number(out&&out.fase_rmt);
+  return {ok:true,reply:{pesan:String((out&&out.pesan)||'Coba ulangi pertanyaanmu ya.').slice(0,1200),fase_rmt:[1,2,3].includes(fase)?fase:null,
+    tahap_literasi:['rumuskan','kerjakan','tafsirkan'].includes(out&&out.tahap_literasi)?out.tahap_literasi:'-',level_bantuan:[0,1,2,3].includes(lvl)?lvl:null,jenis_kesulitan:String((out&&out.jenis_kesulitan)||'').slice(0,30)}};
 }
 /* Konteks layar: soal yang sedang dikerjakan, jumlah percobaan, jawaban terakhir (tanpa data pribadi) */
 function chatKey(){ const v=S.view,u=U(); return v==='latihan'&&S.prac?'lat-'+S.prac.level+'-'+S.prac.q.c+'-'+S.prac.q.n:v==='belajar'&&u?'bel-'+u.li:v; }
@@ -1401,7 +1419,7 @@ function chatHTML(){
     <div class="wrap chatbody" id="chatBody" aria-live="polite">${msgs}${c.busy?`<div class="msg ai"><div class="who">${MASCOT('')}</div><div class="bubble typing">Si Akar sedang berpikir…</div></div>`:''}${c.err?`<p class="err">${c.err}</p>`:''}</div>
     <div class="wrap chatfoot">${aiOn()?`<div class="tools quick">${quick.map(q=>`<button class="tool" data-act="chatQuick" data-q="${q}" ${c.busy?'disabled':''}>${q}</button>`).join('')}</div>
       <div class="chatin"><textarea id="chatInput" class="field" rows="1" maxlength="500" placeholder="Tulis pertanyaan atau jawabanmu…">${esc(c.draft)}</textarea><button class="btn ungu" data-act="chatSend" ${c.busy?'disabled':''} aria-label="Kirim">➤</button></div>`
-      :`<p class="small muted">Si Akar memakai OpenRouter dan aktif di link AkarKu dari Google Apps Script, setelah pemilik mengisi API key di Mode Pemilik → Pengaturan Asisten AI.</p>`}</div></div>`;
+      :`<p class="small muted">Si Akar belum aktif di perangkat ini. Pemilik perlu mengisi API key OpenRouter di Mode Pemilik → Pengaturan Asisten AI.</p>`}</div></div>`;
 }
 
 /* ================= Bottom sheet: kartu rumus & tabel kuadrat ================= */
@@ -1574,6 +1592,7 @@ document.addEventListener('click',e=>{
     case 'aiProv': S.owner.ai.provider=el.dataset.p; S.owner.ai.msg=''; render(); break;
     case 'aiSave': aiSave(); break;
     case 'aiTest': aiTest(); break;
+    case 'aiForget': try{localStorage.removeItem(AI_LKEY)}catch(_){} S.owner.ai.msg='Key dihapus dari perangkat ini.'; render(); break;
     case 'otoggle': { const id=el.dataset.id; S.owner.open[id]=!S.owner.open[id]; render(); break; }
     case 'csv': saveCsv(el.dataset.k); break;
     case 'copyCsv': { const box=document.getElementById('csvBox'); const txt=S.owner.csv||'';
